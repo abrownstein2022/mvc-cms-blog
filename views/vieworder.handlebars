@@ -1,0 +1,103 @@
+<div>
+    <h1>View Your Past Orders</h1>
+    <a href='/homepage'><button class="button is-primary">Back to Homepage</button></a>
+{{!-- 
+If you need to change sort order or search for orders, send a request to the same "homeRoute" with different params
+    <a href="localhost/view-orders?order=desc&sort=recent"></a>
+    <a href="site/view-orders?order=desc&sort=oldest"></a>
+    <a href="site/view-orders?order=asc&sort=recent"></a> --}}
+    
+{{!-- //!attempt 1 --}}
+
+    {{!-- {{#each order_array}}
+        <p>{{order_array[@index].order_id}}</p>
+        <p>{{this.order_date}}</p>
+        {{#each this.orderitems }}
+            <p>1: {{oi.item_id}}</p>
+            <p>2: {{this.item_id}}</p>
+            <p>3: {{item_id}}</p>
+            <p>4: {{orderitems.order_id}}</p>
+            <p>5: {{this.orderitems.order_id}}</p>
+            <p>8: {{order_array.orderitems.oi.order_id}}</p>
+        {{/each}}
+
+
+    {{/each}} --}}
+
+{{!-- order_array[0].orderitems[0].item_id ????????? --}}
+{{!-- //!attempt 2 --}}
+     {{!-- {{#order_array}}
+        <p>{{order_id}}</p>
+        <p>{{order_date}}</p>
+        {{#each orderitems as | that |}}
+            <p>[{{@index}}] {{that.item_id}}</p>
+        {{/each}}
+
+
+    {{/order_array}}  --}}
+
+    {{!-- 
+    customer_id: 1,
+    order_id: 2,
+    order_date: 2022-12-02T02:42:34.000Z,
+    item_name: 'veggie burger',
+    quantity: 1,
+    item_cost: '5'
+     --}}
+
+    {{!-- //!attempt 3 --}}
+    <div class="table-overflow-wrapper">
+    <table>
+        <thead>
+            <td>Orderid</td>
+            <td>Item Name</td>
+            <td>Order_Date</td>
+            <td>Qty</td>
+            <td>Item Cost</td>
+            <td>Line Cost</td>
+        </thead>
+        <tbody>
+            {{#each order_array}}
+                <tr>
+                    <td>{{order_id}}</td>
+                    <td>{{item_name}}</td>
+                    <td>{{formatted_date}}</td>
+                    <td>{{quantity}}</td>
+              {{!-- below is hard-coded currency but there are libraries out there to do this properly --}}
+                    <td>${{item_cost}}.00</td>
+                    <td>${{line_cost}}.00</td>
+                </tr>
+            {{/each}} 
+        </tbody>
+    </table>
+    </div>
+
+
+{{!-- 
+     {{#each order_array}}
+     <div style="background: #ccc4; border-radius: .5rem; padding: .5rem;">
+        <h3>{{item_name}}</h3>
+        <p>#{{order_id}} - {{order_date}}</p>
+        <div style="display:flex; align-items: center; justify-content: space-between;">
+            <p style="display:flex; flex-direction: column; align-items: center;">QTY: {{quantity}}</p>
+            <p style="display:flex; flex-direction: column; align-items: center;">COST: {{item_cost}}</p>
+            <p style="display:flex; flex-direction: column; align-items: center;">TOTAL: {{line_cost}}</p>
+        </div>
+     </div>
+    {{/each}}  --}}
+
+
+    {{!-- {{#with order_array as | ord |}}  
+        <p>{{order_id}}</p>
+        <p>{{order_date}}</p>
+        {{#each orderitems}}
+            <p>1a: {{quantity}}</p>
+            <p>2a: {{this.quantity}}</p>
+            <p>3a: {{this.orderitems.quantity}}</p>
+            <p>4a: {{orderitems.quantity}}</p>
+            <p>5a: {{order_array.orderitems.quantity}}</p>
+        {{/each}}
+
+
+    {{/with}} --}}
+</div>

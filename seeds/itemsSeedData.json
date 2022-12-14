@@ -1,0 +1,56 @@
+[
+  {
+    "item_type_id": 1,
+    "restaurant_id": 1,
+    "item_name": "beef burger",
+    "item_cost": 6.00
+  },
+  {
+    "item_type_id": 1,
+    "restaurant_id": 1,
+    "item_name": "turkey burger",
+    "item_cost": 5.00
+  },
+  {
+    "item_type_id": 1,
+    "restaurant_id": 1,
+    "item_name": "veggie burger",
+    "item_cost": 5.00
+  },
+  {
+    "item_type_id": 2,
+    "restaurant_id": 1,
+    "item_name": "fries",
+    "item_cost": 2.00
+  },
+  {
+    "item_type_id": 2,
+    "restaurant_id": 1,
+    "item_name": "chips",
+    "item_cost": 1.00
+  },
+  {
+    "item_type_id": 3,
+    "restaurant_id": 1,
+    "item_name": "soda",
+    "item_cost": 2.00
+  },
+  {
+    "item_type_id": 3,
+    "restaurant_id": 1,
+    "item_name": "water",
+    "item_cost": 1.00
+  },
+  {
+    "item_type_id": 4,
+    "restaurant_id": 1,
+    "item_name": "fruit salad",
+    "item_cost": 2.00
+  },
+  {
+    "item_type_id": 4,
+    "restaurant_id": 1,
+    "item_name": "cookies",
+    "item_cost": 2.00
+  }
+]

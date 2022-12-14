@@ -1,0 +1,18 @@
+[
+  {
+    "restaurant_id": 1,
+    "item_type_name": "entree"
+  },
+  {
+    "restaurant_id": 1,
+    "item_type_name": "side"
+  },
+  {
+    "restaurant_id": 1,
+    "item_type_name": "beverage"
+  },
+  {
+    "restaurant_id": 1,
+    "item_type_name": "dessert"
+  }
+]
