@@ -4,41 +4,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Restaurant Mgr - Group 5's Burgers and Fries!</title>
-  <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  {{!-- express is serving public diretory as static files available at root or ("/") so path below is ok for any files under public --}}
-    <link rel="stylesheet" href="/css/main.css">  
+  <title>Fund My Project!</title>
+  <link rel="stylesheet" href="/css/jass.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
+  <div class="flex-column justify-space-around">
+    <header class="display-flex justify-space-between align-center p-2">
+      <h1>
+        <span role="img" aria-label="money">💸</span>
+        <a href="/">Fund My Project!</a>
+      </h1>
+      <nav>
+        <!-- Conditionally render login or logout links -->
+        {{#if logged_in}}
+        <a href="/profile">profile</a> |
+        <button class="no-button" id="logout">logout</button>
+        {{else}}
+        <a href="/login">login</a>
+        {{/if}}
+      </nav>
+    </header>
+    <main class="container container-fluid mt-5">
+      <!-- Render the sub layout -->
+      {{{ body }}}
+    </main>
+    <footer>
+      
+    </footer>
+  </div>
 
-  <header class="header-container row">
-      <h1>Restaurant Mgr - Group 5's Burgers and Fries</h1>
-      <a href="/">
-        <img src="/images/burger-icon.png"  alt="image of small burger wtih tomato, mustand and lettucs">
-        </a>
-  </header>
-
-
-  {{!-- <p>HEADER (main.hbs)</p> --}}
-  {{!-- hr is horizontal line --}}
-  <hr />
-
-
-  {{!-- 
-    Handlebars will detect this "body tag" and inserts the current "view"
-    Basically copying the entire view file into this section below
-    handlebars by design uses three curly brackets for body - i dont know why
-   --}}
-  {{{body}}}
-
-
-
-  <hr />
-  {{!-- <p>FOOTER (main.hbs)</p> --}}
-
+  <!-- Render script for logged in users only -->
+  {{#if logged_in}}
+  <script src="/js/logout.js"></script>
+  {{/if}}
 </body>
+
 </html>
