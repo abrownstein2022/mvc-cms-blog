@@ -17,5 +17,7 @@ if (process.env.JAWSDB_URL) {
     }
   );
 }
+// npm i --save-dev <package> (devDependancy)
+// npm i -D <package> (devDependancy)
 
 module.exports = sequelize;

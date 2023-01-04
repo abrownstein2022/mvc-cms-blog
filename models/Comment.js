@@ -17,15 +17,15 @@ Comment.init(
     },
     content: {
       //note: default STRING contains 255 char max
-      type: DataTypes.STRING,  
+      type: DataTypes.STRING,
     },
-    blog_id: {  //blog post
+    blog_id: { //blog post
       type: DataTypes.INTEGER,
       references: {
         model: 'blog',
         key: 'id',
       },
-    },   
+    },
     date_created: {
       type: DataTypes.DATE,
       allowNull: false,

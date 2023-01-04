@@ -28,8 +28,8 @@ User.init(
       },
     },
   },
-  {  //runs whenever a new model is created or updated and takes the data from the new user call
-    //and passes it to the hook.  newUserData is data passed.  The password is hashed when 
+  { //runs whenever a new model is created or updated and takes the data from the new user call
+    //and passes it to the hook.  newUserData is data passed.  The password is hashed when
     //anything is created or updated
     hooks: {
       beforeCreate: async (newUserData) => {

@@ -20,7 +20,7 @@ Blog.init(
     },
     content: {
       //note: default STRING contains 255 char max
-      type: DataTypes.STRING,  
+      type: DataTypes.STRING,
     },
     user_id: {
       type: DataTypes.INTEGER,
@@ -28,7 +28,7 @@ Blog.init(
         model: 'user',
         key: 'id',
       },
-    },   
+    },
     date_created: {
       type: DataTypes.DATE,
       allowNull: false,
