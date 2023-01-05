@@ -10,7 +10,10 @@ router.get('/', async (req, res) => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
 
-      res.status(200).json(userData);
+      res.status(200).json({
+        id: userData.id,
+        username: userData.username,
+      });
     });
   } catch (err) {
     res.status(400).json(err);
@@ -26,9 +29,14 @@ router.post('/register', async (req, res) => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
 
+      // res.status(200).json({
+      //   ...userData,
+      //   password: '*' //! overwriting the password so no insecure data is returned to the front-end
+      // });
+      // do not use pass the entire object. Just pass the fields we need to show and don't show the password.
       res.status(200).json({
-        ...userData,
-        password: '*' //! overwriting the password so no insecure data is returned to the front-end
+        id: userData.id,
+        username: userData.username,
       });
     });
   } catch (err) {
@@ -64,7 +72,16 @@ router.post('/login', async (req, res) => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
 
-      res.json({ user: userData, message: 'You are now logged in!' });
+      // res.status(200).json({
+      //   id: userData.id,
+      //   username: userData.username,
+      // });
+
+      res.status(200).json({
+        user: userData.id,
+        username: userData.username,
+        message: 'You are now logged in!'
+      });
     });
 
   } catch (err) {
