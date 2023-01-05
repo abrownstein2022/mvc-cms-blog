@@ -1,0 +1,35 @@
+<!-- Loop over each object in the projects array -->
+{{!-- 
+Our blog list is a map (object) and handlebars does not have a build in method for looping through object properties
+We can create and register a 'helper' function that can be userd in handlebars in place of {{#each}} => {{#eachProperty}}
+and will return whatever values are returned by the helper function (key, value)
+
+{{#eachProperty object}}
+  {{property}}: {{value}}
+{{/eachProperty}}
+
+ --}}
+{{#each_property blogs}}
+<div class="row mb-4 project">
+  <div class="col-md-5">
+    <h2>
+      {{!-- <a href="/project/{{project.id}}">{{project.name}}</a> --}}
+      {{blogs.title}}
+      {{!--
+       if we created a helper to generate a banner image (unique to each user) 
+       we can register this function as a helper and invoke it in the front end with three handlebars {{{helper_func}}}
+      
+      --}}
+     
+    </h2>
+    <p>posted by: {{blogs.username}} on {{blogs.date_created}}</p>
+    <p>{{blogs.content}}</p>
+    <ul>
+      {{#each blogs.comment as |comment|}}
+      <li>{{comment.content}} - {{comment.username}}</li>
+      {{/each}}
+    </ul>
+
+  </div>
+</div>
+{{/eachProperty}}

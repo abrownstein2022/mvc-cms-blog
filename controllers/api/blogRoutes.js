@@ -2,6 +2,44 @@ const router = require('express').Router();
 const { Blog, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
+
+const createBlogCommentMap = async () => {
+  const allBlogs = await Blog.findAll();
+
+  // for each blog post - find its comments
+  //! cannot use async logic / promises in a forEach loop - it has no reference to the promises - doesnt know what to wait for
+  // Promise.all takes an array of promises and waits for EVERY one of them to resolve or reject
+  // const allBlogsWithComments = Promise.all(
+  //   // we need an array so we use array.map
+  //   // the loop must return a promise ( Model.findAll() returns a promise )
+  //   // find all comments with matching 'blog_id'
+  //   allBlogs.map((blog) => Comment.findAll({ where: { blog_id: blog.id} }))
+  // )
+
+  // { blog_id: { ...blog }  }
+  const blogMap = {};
+
+
+  await Promise.all(
+    // now we are returning an async function, instead of the Comment.findAll directly
+    allBlogs.map(async (blog) => {
+      let thisBlogsComments = await Comment.findAll({ where: { blog_id: blog.id} });
+      // { blog_id: { ...blog }  }
+      blogMap[blog.id] = {
+        ...blog,
+        comments: thisBlogsComments
+      };
+
+    })
+  );
+  return blogMap;
+};
+
+
+const getBlogsByUserId = async (_id) => {
+  const blogs = await Blog.findAll({ where: { user_id: _id }});
+  return blogs;
+};
 // GET...com/api/blogs (for the homepage - list every blog post)
 // PUBLIC - anyone can see all blogs (no witthAuth middleware)
 router.get('/', async (req, res) => {
@@ -19,55 +57,7 @@ router.get('/', async (req, res) => {
 // PUBLIC - anyone can see all blogs (no witthAuth middleware)
 router.get('/my-blogs', async (req, res) => {
   try {
-    // get all blog posts
-    const allBlogs = await Blog.findAll();
-
-    // for each blog post - find its comments
-    //! cannot use async logic / promises in a forEach loop - it has no reference to the promises - doesnt know what to wait for
-    // Promise.all takes an array of promises and waits for EVERY one of them to resolve or reject
-    // const allBlogsWithComments = Promise.all(
-    //   // we need an array so we use array.map
-    //   // the loop must return a promise ( Model.findAll() returns a promise )
-    //   // find all comments with matching 'blog_id'
-    //   allBlogs.map((blog) => Comment.findAll({ where: { blog_id: blog.id} }))
-    // )
-
-    // { blog_id: { ...blog }  }
-    const blogMap = {};
-
-
-    await Promise.all(
-      // now we are returning an async function, instead of the Comment.findAll directly
-      allBlogs.map(async (blog) => {
-        let thisBlogsComments = await Comment.findAll({ where: { blog_id: blog.id} });
-        // { blog_id: { ...blog }  }
-        blogMap[blog.id] = {
-          ...blog,
-          comments: thisBlogsComments
-        };
-
-      })
-    );
-
-    // blogs = []
-
-
-    /*
-    {
-      blog_id: {
-        title: '',
-        content: '',
-        comments: [
-          {
-            username: '',
-            content: '',
-          }
-        ]
-      }
-    }
-    */
-
-    // return the array of blogs with comments
+    const blogMap = await createBlogCommentMap();
     res.status(200).json(blogMap);
   } catch (err) {
     res.status(400).json(err);
@@ -146,3 +136,4 @@ router.delete('/:blog_id', withAuth, async (req, res) => {
 });
 
 module.exports = router;
+module.exports = { createBlogCommentMap, getBlogsByUserId };

@@ -1,7 +1,32 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
+
+
+//! not recommended to use router inside of the router
+// this is possible but complicated and not recommended
+// let data = router.get('/user-data')
+
+//! we COULD duplicate our logic here
+// recommended to separate your controller / router logic
+/** registerUser({ username, password }) */
+const registerUser = async (config) => {
+  try {
+    // user model is only looking for username and password, so will ignore any other keys
+    const userData = await User.create(config);
+    return userData;
+  } catch (err) {
+    console.log(err);
+    // functions that return nothing or just return - actually return undefined
+    return undefined;
+  }
+};
+
+
+
 // get current user data to display on homepage or navbar
+// this 'req' object is always the same object - the router is passing it to the correct 'route' to handle some logic
+// not recommended to put logic directly in routes, because you cant use routes elsewhere
 router.get('/', async (req, res) => {
   try {
     const userData = await User.create(req.body);
@@ -23,7 +48,13 @@ router.get('/', async (req, res) => {
 // POST ...com/api/users/register - to register a new user { username, password }
 router.post('/register', async (req, res) => {
   try {
-    const userData = await User.create(req.body);
+    //! not recommended to use router inside of the router
+    // this is possible but complicated and not recommended
+    // let data = router.get('/user-data')
+
+    //! we COULD duplicate our logic here
+    // recommended to separate your controller / router logic
+    const userData = await registerUser(req.body);
 
     req.session.save(() => {
       req.session.user_id = userData.id;
