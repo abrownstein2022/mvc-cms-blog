@@ -54,6 +54,24 @@ router.get('/dashboard', async (req, res) => {
   }
 });
 
+// add a route to handle showing the edit blog page
+router.get('/edit', async (req, res) => {
+  try {
+    const blogs = getBlogsByUserId(req.session.user_id);
+
+    res.render('dashboard', {
+      blogs,
+      logged_in: req.session.logged_in
+    });
+  } catch (err) {
+    //! never return status/json from a view route - create an error.hbs page and render it with error data
+    res.render('error', {
+      text: err?.message ?? err.toString() ?? err
+    });
+  }
+});
+
+
 // Use withAuth middleware to prevent access to route
 router.get('/signup', withAuth, async (req, res) => {
   try {
@@ -75,5 +93,6 @@ router.get('/login', (req, res) => {
 
   res.render('login');
 });
+
 
 module.exports = router;

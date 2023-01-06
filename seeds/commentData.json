@@ -1,0 +1,32 @@
+[
+  {
+    "blog_id": 1,
+    "username": "Sal",
+    "content": "mvc comment"
+  },
+  {
+    "blog_id": 1,
+    "username": "Sal",
+    "content": "mvc2 comment"
+  },
+  {
+    "blog_id": 1,
+    "username": "Sal",
+    "content": "mvc3 comment"
+  },
+  {
+    "blog_id": 2,
+    "username": "Lernantino",
+    "content": "authentication vs authorization comment"
+  },
+  {
+    "blog_id": 2,
+    "username": "Lernantino",
+    "content": "authentication vs authorization comment2"
+  },
+  {
+    "blog_id": 3,
+    "username": "Amiko",
+    "content": "ORM comment"
+  }
+]

@@ -1,0 +1,27 @@
+<div class="text-center">
+  <h2>{{username}}</h2>
+  {{#each blogs as |blog|}}
+  <div class="col-md-5">
+    <h2>
+      {{!-- <a href="/project/{{project.id}}">{{project.name}}</a> --}}
+      {{blogs.title}}
+      {{!--
+       if we created a helper to generate a banner image (unique to each user) 
+       we can register this function as a helper and invoke it in the front end with three handlebars {{{helper_func}}}
+      
+      --}}
+     
+    </h2>
+    <p>posted by: {{blogs.username}} on {{blogs.date_created}}</p>
+    <p>{{blogs.content}}</p>
+    <button>Redirect to edit-blog page (by blog id) `/blog/:id`</button>
+    {{!-- <ul>
+      {{#each blogs.comment as |comment|}}
+      <li>{{comment.content}} - {{comment.username}}</li>
+      {{/each}}
+    </ul> --}}
+
+  </div>
+
+  {{/each}}
+</div>
