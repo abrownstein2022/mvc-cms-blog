@@ -40,10 +40,21 @@ router.get('/', async (req, res) => {
 
 router.get('/dashboard', async (req, res) => {
   try {
-    const blogs = getBlogsByUserId(req.session.user_id);
+    if(!req.session.user_id){
+      res.render('error', {
+        text: 'You must be logged in, how dod you get here?'
+      });
+      return;
+    }
+    const blogs = await getBlogsByUserId(req.session.user_id);
+
+    console.log('got blogs by current user:', blogs);
 
     res.render('dashboard', {
-      blogs,
+      //! findAll is retturning an arrau of mysql blog objects - they have nested property that we need (dataValues)
+      //! loop thru the array and get the dataValues for each blog
+      blogs: blogs.map(blog => blog.dataValues),
+      user_id: req.session.user_id,
       logged_in: req.session.logged_in
     });
   } catch (err) {

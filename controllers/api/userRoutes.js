@@ -99,20 +99,27 @@ router.post('/login', async (req, res) => {
       return;
     }
 
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
+    console.log('User logged in successfully, setting user_id in session vars:', userData.id);
+    req.session.user_id = userData.id;
+    req.session.logged_in = true;
+    console.log('confirm session vars:', req.session);
 
+    req.session.save(() => {
       // res.status(200).json({
       //   id: userData.id,
       //   username: userData.username,
       // });
 
-      res.status(200).json({
-        user: userData.id,
-        username: userData.username,
-        message: 'You are now logged in!'
-      });
+      // res.status(200).json({
+      //   user: userData.id,
+      //   username: userData.username,
+      //   message: 'You are now logged in!'
+      // });
+      // res.render('dashboard', {
+      //   username: userData.username,
+      //   user_id: userData.id
+      // });
+      res.redirect('/dashboard');
     });
 
   } catch (err) {

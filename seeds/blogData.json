@@ -1,12 +1,12 @@
 [
   {
-    "username": "Sal",
+    "username": "Lernantino",
     "title": "Why MVC is so important",
     "content": "mvc allows developers to maintain a true separation of concerns.......",
     "user_id": 1
   },
   {
-    "username": "Lernantino",
+    "username": "Sal",
     "title": "Authentication vs. Authorization",
     "content": "there is a difference between Authentication and Authorization.......",
     "user_id": 2

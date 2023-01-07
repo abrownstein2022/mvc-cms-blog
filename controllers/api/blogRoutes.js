@@ -37,6 +37,9 @@ const createBlogCommentMap = async () => {
 
 
 const getBlogsByUserId = async (_id) => {
+  if(!_id){
+    console.log('gettBlogsByUserId() requires argument of "user_id"')
+  }
   const blogs = await Blog.findAll({ where: { user_id: _id }});
   return blogs;
 };

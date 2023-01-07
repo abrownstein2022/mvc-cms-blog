@@ -1,10 +1,12 @@
 <div class="text-center">
   <h2>{{username}}</h2>
+  <h2>{{user_id}}</h2>
   {{#each blogs as |blog|}}
   <div class="col-md-5">
+    <b>DAHSBOARD: shows this users post, each with a button to open an edit dialogue or modal or new window</b>
     <h2>
       {{!-- <a href="/project/{{project.id}}">{{project.name}}</a> --}}
-      {{blogs.title}}
+      {{blog}}
       {{!--
        if we created a helper to generate a banner image (unique to each user) 
        we can register this function as a helper and invoke it in the front end with three handlebars {{{helper_func}}}
@@ -12,9 +14,9 @@
       --}}
      
     </h2>
-    <p>posted by: {{blogs.username}} on {{blogs.date_created}}</p>
-    <p>{{blogs.content}}</p>
-    <button>Redirect to edit-blog page (by blog id) `/blog/:id`</button>
+    <p>posted by: {{blog.username}} on {{blog.date_created}}</p>
+    <p>{{blog.content}}</p>
+    <button>ADD FEATURE: Redirect to edit-blog page (by blog id) `/blog/:id`</button>
     {{!-- <ul>
       {{#each blogs.comment as |comment|}}
       <li>{{comment.content}} - {{comment.username}}</li>
