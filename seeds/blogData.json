@@ -6,13 +6,13 @@
     "user_id": 1
   },
   {
-    "name": "Lernantino",
+    "username": "Lernantino",
     "title": "Authentication vs. Authorization",
     "content": "there is a difference between Authentication and Authorization.......",
     "user_id": 2
   },
   {
-    "name": "Amiko",
+    "username": "Amiko",
     "title": "Object-Relational Mapping",
     "content": "I have really loved learning about ORMs.....",
     "user_id": 3

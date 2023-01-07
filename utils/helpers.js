@@ -19,16 +19,16 @@ module.exports = {
       return '<span for="img" aria-label="gear">⚙️</span>';
     }
   },
-  each_property: (context, options) => {
-    var ret = '';
-    for(var prop in context) {
-      ret = ret + options.fn({property:prop,value:context[prop]});
-    }
-    return ret;
-    // Then using it like so:
+  // each_property: (context, options) => {
+  //   var ret = '';
+  //   for(var prop in context) {
+  //     ret = ret + options.fn({property:prop,value:context[prop]});
+  //   }
+  //   return ret;
+  //   // Then using it like so:
 
-    // {{#eachProperty object}}
-    //     {{property}}: {{value}}<br/>
-    // {{/eachProperty }}
-  }
+  //   // {{#eachProperty object}}
+  //   //     {{property}}: {{value}}<br/>
+  //   // {{/eachProperty }}
+  // }
 };
