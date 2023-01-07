@@ -40,6 +40,9 @@ app.engine('.hbs', exphbs({
 }));
 app.set('view engine', '.hbs');
 
+//https://www.npmjs.com/package/handlebars-dateformat
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));

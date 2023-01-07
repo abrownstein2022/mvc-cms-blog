@@ -21,8 +21,9 @@ and will return whatever values are returned by the helper function (key, value)
        we can register this function as a helper and invoke it in the front end with three handlebars {{{helper_func}}}
       
       --}}
-     
+     toString('yyyy-MM-dd')
     </h2>
+    {{!-- use format_date function found in utils/helpers.js --}}
     <p>posted by: {{blog.username}} on {{blog.date_created}}</p>
     <p>{{blog.content}}</p>
     <ul>

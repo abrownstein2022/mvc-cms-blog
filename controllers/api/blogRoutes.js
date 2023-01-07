@@ -7,7 +7,7 @@ const createBlogCommentMap = async () => {
   const allBlogs = await Blog.findAll();
 
   // for each blog post - find its comments
-  //! cannot use async logic / promises in a forEach loop - it has no reference to the promises - doesnt know what to wait for
+  //! cannot use async logic / promises in a forEach loop - it has no reference to the promises - doesn't know what to wait for
   // Promise.all takes an array of promises and waits for EVERY one of them to resolve or reject
   // const allBlogsWithComments = Promise.all(
   //   // we need an array so we use array.map
@@ -38,10 +38,12 @@ const createBlogCommentMap = async () => {
 
 const getBlogsByUserId = async (_id) => {
   if(!_id){
-    console.log('gettBlogsByUserId() requires argument of "user_id"')
+    console.log('gettBlogsByUserId() requires argument of "user_id"');
   }
   const blogs = await Blog.findAll({ where: { user_id: _id }});
-  return blogs;
+  //! findAll is returning an array of mysql blog objects - they have nested property that we need (dataValues)
+  //! loop thru the array and get the dataValues for each blog
+  return blogs.map(blog => blog.dataValues);
 };
 // GET...com/api/blogs (for the homepage - list every blog post)
 // PUBLIC - anyone can see all blogs (no witthAuth middleware)
