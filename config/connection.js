@@ -13,9 +13,21 @@ if (process.env.JAWSDB_URL) {
     {
       host: 'localhost',
       dialect: 'mysql',
-      port: 3306
+      port: 3306,
+      // dialectOptions: {
+      //   socketPath: 'MySQL',
+      //   debug: true
+      // }
     }
   );
+
+  sequelize.authenticate()
+    .then(()=>{
+      console.log('Database connection authenticated...');
+    })
+    .catch(err => {
+      console.log('Database authentication error:', err);
+    });
 }
 // npm i --save-dev <package> (devDependancy)
 // npm i -D <package> (devDependancy)

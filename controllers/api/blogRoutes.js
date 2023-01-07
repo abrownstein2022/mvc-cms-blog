@@ -58,7 +58,7 @@ router.get('/', async (req, res) => {
 router.get('/my-blogs', async (req, res) => {
   try {
     const blogMap = await createBlogCommentMap();
-    res.status(200).json(blogMap);
+    res.status(200).json(Object.values(blogMap));
   } catch (err) {
     res.status(400).json(err);
   }
@@ -135,5 +135,10 @@ router.delete('/:blog_id', withAuth, async (req, res) => {
   }
 });
 
+// module.exports = router;
+// module.exports = { createBlogCommentMap, getBlogsByUserId };
+
 module.exports = router;
-module.exports = { createBlogCommentMap, getBlogsByUserId };
+exports = module.exports;
+exports.createBlogCommentMap = createBlogCommentMap;
+exports.getBlogsByUserId = getBlogsByUserId;
