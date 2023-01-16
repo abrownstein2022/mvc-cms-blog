@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const withAuth = require('../utils/auth');
-const { createBlogCommentMap, getBlogsByUserId } = require('./api/blogRoutes');
+const { createBlogCommentMap, getBlogsByUserId, getBlogById } = require('./api/blogRoutes');
 
 
 router.get('/', async (req, res) => {
@@ -66,12 +66,12 @@ router.get('/dashboard', async (req, res) => {
 });
 
 // add a route to handle showing the edit blog page
-router.get('/edit', async (req, res) => {
+router.get('/edit/:blog_id', async (req, res) => {
   try {
-    const blogs = getBlogsByUserId(req.session.user_id);
+    const blog = getBlogById(req.params.blog_id);
 
-    res.render('dashboard', {
-      blogs,
+    res.render('edit', {
+      blog,
       logged_in: req.session.logged_in
     });
   } catch (err) {

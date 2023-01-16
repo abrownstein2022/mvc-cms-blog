@@ -6,6 +6,10 @@ let sequelize;
 if (process.env.JAWSDB_URL) {
   sequelize = new Sequelize(process.env.JAWSDB_URL);
 } else {
+  if(sequelize){
+    console.log('There is already an instance of sequelize running... skipping init', sequelize);
+    return;
+  }
   sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,

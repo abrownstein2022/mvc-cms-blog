@@ -45,6 +45,25 @@ const getBlogsByUserId = async (_id) => {
   //! loop thru the array and get the dataValues for each blog
   return blogs.map(blog => blog.dataValues);
 };
+
+const getBlogById = async (_id) => {
+  if(!_id){
+    console.log('gettBlogById() requires argument of "blog_id"');
+  }
+  const blog = await Blog.findOne({ where: { id: _id }});
+  console.log('Get blog by id', {
+    _id,
+    blog
+  });
+  //! findAll is returning an array of mysql blog objects - they have nested property that we need (dataValues)
+  //! loop thru the array and get the dataValues for each blog
+  return blog.dataValues;
+};
+
+
+
+
+
 // GET...com/api/blogs (for the homepage - list every blog post)
 // PUBLIC - anyone can see all blogs (no witthAuth middleware)
 router.get('/', async (req, res) => {
@@ -84,7 +103,7 @@ router.post('/', withAuth, async (req, res) => {
 });
 
 //if there's a delete method, then there's also an update method (go hand-in-hand)
-// UPDATE...com/api/blogs/:id
+// UPDATE...com/api/blogs/:blog_id
 router.put('/:blog_id', withAuth, async (req, res) => {
   try {
 
@@ -147,3 +166,4 @@ module.exports = router;
 exports = module.exports;
 exports.createBlogCommentMap = createBlogCommentMap;
 exports.getBlogsByUserId = getBlogsByUserId;
+exports.getBlogById = getBlogById;
