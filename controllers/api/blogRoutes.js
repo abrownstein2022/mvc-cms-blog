@@ -91,21 +91,28 @@ router.get('/my-blogs', async (req, res) => {
 // POST...com/api/blogs (for the dashboard - create a new blog post from the dash)
 router.post('/', withAuth, async (req, res) => {
   try {
-    const newBlog = await Blog.create({
+    await Blog.create({
       ...req.body,
       user_id: req.session.user_id,
+      username: req.session.username
     });
 
-    res.status(200).json(newBlog);
+    // res.status(200).json(newBlog);
+    res.redirect('/dashboard');
   } catch (err) {
-    res.status(400).json(err);
+    // res.status(400).json(err);
+    res.render('error', {
+      text: err?.message ?? err.toString() ?? err
+    });
   }
 });
 
 //if there's a delete method, then there's also an update method (go hand-in-hand)
-// UPDATE...com/api/blogs/:blog_id
-router.put('/:blog_id', withAuth, async (req, res) => {
+// POST...com/api/blogs/edit/:blog_id
+router.post('/edit/:blog_id', withAuth, async (req, res) => {
   try {
+
+    console.log('recieved request at route: api/blogs/edit/blog_id :', req.body, req.params);
 
     const { title, content } = req.body;
     //! check out Zod npm package (validation)
@@ -113,26 +120,84 @@ router.put('/:blog_id', withAuth, async (req, res) => {
       res.status(404).json({ message: 'Blog requires "title" and "content" values.' });
       return;
     }
+    let blogData;
+    let blogId;
 
-    const blogData = await Blog.update({
-      where: {
-        id: req.params.blog_id,
-        // user_id: req.session.user_id,
-      },
-      values: {
-        title,
-        content
-      }
-    });
+    try{
+      blogId = parseInt(req.params.blog_id); //~ NaN has typeof number
+      console.log('Parsed id:', blogId);
+    }catch(err){
+      console.log('ERR 1 (cound not parse id):', err);
+    }
+
+    try{
+      await Blog.findOne({ where: { id: blogId } });
+    }catch(err){
+      console.log('ERR 2 (blog does not exist):', err);
+    }
+
+
+    try{
+      // await Blog.findOne({ where: { id: parseInt(req.params.blog_id) } });
+      // blogData = await Blog.update({
+      //   where: {
+      //     id: blogId, //! next time use strings for "id"
+      //   },
+      //   values: {
+      //     title,
+      //     content
+      //   }
+      // });
+
+      // const dish = await Dish.update(
+      //   {
+      //     dish_name: req.body.dish_name,
+      //     description: req.body.description,
+      //     guest_name: req.body.guest_name,
+      //     has_nuts: req.body.has_nuts,
+      //   },
+      //   {
+      //     where: {
+      //       id: req.params.id,
+      //     },
+      //   }
+      // );
+
+      blogData = await Blog.update(
+        {
+          title: title,
+          content: content
+        },
+        {
+          returning: true,
+          where: {
+            id: blogId,
+          }
+        }
+      );
+
+    }catch(err){
+      console.log('ERR 3 (could not update blog):', err);
+    }
+
 
     if (!blogData) {
-      res.status(404).json({ message: 'No blog found with this id!' });
+      // res.status(404).json({ message: 'No blog found with this id!' });
+      res.render('error', {
+        text: 'No blog found with this id!'
+      });
       return;
     }
 
-    res.status(200).json(blogData);
+    res.redirect('/dashboard');
   } catch (err) {
-    res.status(500).json(err);
+    // res.status(500).json({
+    //   devMessage: 'Error updating the blog content...',
+    //   err
+    // });
+    res.render('error', {
+      text: err?.message ?? err.toString() ?? err
+    });
   }
 });
 

@@ -4,16 +4,16 @@
   <div class="col-md-5">
 
 {{!-- send a PUT request to tthis api route to update the blog in db --}}
-    <form method="POST" action="/api/blogs/edit/{{blog.id}}">
+    <form method="POST" action="/api/blogs">
 
       <label for="blog-title" class="form-group">Title</label>
-      <input id="blog-title" value={{blog.title}} name="title" class="form-input" ></input>
+      <input id="blog-title" placeholder="Blog Title" name="title" class="form-input" ></input>
 
       <label for="blog-content"  class="form-group">Content</label>
-      <input id="blog-content" value={{blog.content}} name="content" class="form-input"></input>
+      <input id="blog-content" placeholder="Blog Content" name="content" class="form-input"></input>
       
       <br />
-      <button type="submit">Submit</button>
+      <button type="submit">Create Post!</button>
 
     </form>
 

@@ -18,10 +18,11 @@ if (process.env.JAWSDB_URL) {
       host: 'localhost',
       dialect: 'mysql',
       port: 3306,
-      // dialectOptions: {
+      dialectOptions: {
       //   socketPath: 'MySQL',
-      //   debug: true
-      // }
+      //   debug: true,
+        connectTimeout: 60000 * 60 // one hour of milliseconds
+      }
     }
   );
 

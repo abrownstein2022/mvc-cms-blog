@@ -68,10 +68,23 @@ router.get('/dashboard', async (req, res) => {
 // add a route to handle showing the edit blog page
 router.get('/edit/:blog_id', async (req, res) => {
   try {
-    const blog = getBlogById(req.params.blog_id);
+    const blog = await getBlogById(req.params.blog_id);
 
     res.render('edit', {
       blog,
+      logged_in: req.session.logged_in
+    });
+  } catch (err) {
+    //! never return status/json from a view route - create an error.hbs page and render it with error data
+    res.render('error', {
+      text: err?.message ?? err.toString() ?? err
+    });
+  }
+});
+
+router.get('/new', async (req, res) => {
+  try {
+    res.render('new', {
       logged_in: req.session.logged_in
     });
   } catch (err) {

@@ -1,31 +1,19 @@
 <div class="text-center">
-  <h2>{{username}}</h2>
-  <h2>{{user_id}}</h2>
-  {{#each blogs as |blog|}}
+  {{!-- <h2>{{user_id}}: {{username}}</h2> We are not passing username into render calls --}}
   <div class="col-md-5">
-    {{!-- <b>DAHSBOARD: shows this users post, each with a button to open an edit dialogue or modal or new window</b> --}}
-    <h2>
-      {{!-- <a href="/project/{{project.id}}">{{project.name}}</a> --}}
-      {{blog.title}}
-      {{!--
-       if we created a helper to generate a banner image (unique to each user) 
-       we can register this function as a helper and invoke it in the front end with three handlebars {{{helper_func}}}
-      
-      --}}
-     
-    </h2>
-    <p>posted by: {{blog.username}} on {{blog.date_created}}</p>
-    <p>{{blog.content}}</p>
-    {{!-- <button>ADD FEATURE: Redirect to edit-blog page (by blog id) `/blog/:id`</button> --}}
-    <a href="/edit/{{blog.id}}">Edit this Post</a>
-    {{!-- EJS - embedded javascript --}}
-    {{!-- <ul>
-      {{#each blogs.comment as |comment|}}
-      <li>{{comment.content}} - {{comment.username}}</li>
-      {{/each}}
-    </ul> --}}
-
+    <a href="/new">+ New Post</a>
+  {{#each blogs as |blog|}}
+  <a class="text-normal" href="/edit/{{blog.id}}">
+  <div class="card">
+    <div class="card-header display-flex justify-space-between">
+      <h4>{{blog.title}}</h4>
+      <small>{{blog.username}} on {{format_date blog.date_created}}</small>
+    </div>
+    <div class="card-body">{{blog.content}}</div>
+    {{!-- Edit this Post</a> --}}
+    {{!-- <div class="card-footer">posted by: {{blog.username}} on {{format_date blog.date_created}}</div> --}}
   </div>
-
+</a>
   {{/each}}
+  </div>
 </div>

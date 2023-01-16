@@ -859,6 +859,15 @@ a:hover {
   padding-bottom: 1.625rem;
 }
 
+.text-normal {
+  text-decoration: none;
+  color: inherit;
+}
+.text-normal:hover{
+  text-decoration: none;
+  color: inherit;
+}
+
 .text-uppercase {
   text-transform: uppercase !important;
 }
