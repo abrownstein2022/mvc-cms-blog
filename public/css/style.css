@@ -22,3 +22,9 @@ header, .project:not(:last-child) {
   font-weight: bold;
   margin-left: -5px;
 }
+
+#main-title {
+  /* underline */
+  text-decoration: none;  
+  
+}
