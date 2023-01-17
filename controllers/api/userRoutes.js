@@ -98,7 +98,7 @@ router.post('/login', async (req, res) => {
         .json({ message: 'Incorrect email or password, please try again' });
       return;
     }
-
+    // req.session is the temp storage for cookies until expires
     console.log('User logged in successfully, setting user_id in session vars:', userData.id);
     req.session.user_id = userData.id;
     req.session.username = userData.username;

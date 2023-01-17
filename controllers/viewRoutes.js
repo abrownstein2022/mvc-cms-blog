@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const withAuth = require('../utils/auth');
 const { createBlogCommentMap, getBlogsByUserId, getBlogById } = require('./api/blogRoutes');
+const {Blog} = require("../models"); //1/16/23
 
-
-router.get('/', async (req, res) => {
+router.get('/dashboard', async (req, res) => {
   try {
     //! not recommended to use router inside of the router
     // this is possible but complicated and not recommended
@@ -25,9 +25,11 @@ router.get('/', async (req, res) => {
     // const projects = projectData.map((project) => project.get({ plain: true }));
 
     const blogMap = createBlogCommentMap();
-    res.render('homepage', {
+    res.render('dashboard', {
       blogMap,
-      logged_in: req.session.logged_in
+      logged_in: req.session.logged_in,
+      // this will only show the blogs for the currently logged in user
+      user_id: req.session.user_id
     });
   } catch (err) {
     //! never return status/json from a view route - create an error.hbs page and render it with error data
@@ -38,21 +40,31 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/dashboard', async (req, res) => {
+// homepage does not need login - open to public
+router.get('/', async (req, res) => {
   try {
-    if(!req.session.user_id){
-      res.render('error', {
-        text: 'You must be logged in, how did you get here?'
-      });
-      return;
-    }
+    // if(!req.session.user_id){
+    //   res.render('error', {
+    //     text: 'You must be logged in, how did you get here?'
+    //   });
+    //   return;
+    // }
     //! tthis func now returns the mysql blog items mapped to an array of their dataVlaues
     //! can use the array directly without filtering
-    const blogs = await getBlogsByUserId(req.session.user_id);
+    // const blogs = await getBlogsByUserId(req.session.user_id);
 
+    const blogData = await Blog.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ['name'],
+        },
+      ],
+    });
+     const blogs = blogData.map(blog => blog.get({plain:true}))  //serialize data
     console.log('got blogs by current user:', blogs);
 
-    res.render('dashboard', {
+    res.render('homepage', {
       blogs,
       user_id: req.session.user_id,
       logged_in: req.session.logged_in
