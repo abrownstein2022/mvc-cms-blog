@@ -106,9 +106,12 @@ router.post('/login', async (req, res) => {
     const userData = await User.findOne({ where: { username: req.body.username } });
 
     if (!userData) {
-      res
-        .status(400)
-        .json({ message: 'No user found, please try again' });
+      // res
+      //   .status(400)
+      //   .json({ message: 'No user found, please try again' });
+      res.render('login', {
+        error:'No user found...'
+      });
       return;
     }
 
@@ -119,9 +122,12 @@ router.post('/login', async (req, res) => {
     const validPassword = await userData.checkPassword(req.body.password);
 
     if (!validPassword) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
+      // res
+      //   .status(400)
+      //   .json({ message: 'Incorrect email or password, please try again' });
+      res.render('login', {
+        error:'Incorrect username or password, please try again'
+      });
       return;
     }
     // req.session is the temp storage for cookies until expires
@@ -150,7 +156,9 @@ router.post('/login', async (req, res) => {
     });
 
   } catch (err) {
-    res.status(400).json(err);
+    res.render('login', {
+      error: err?.message ?? err.toString() ?? err
+    });
   }
 });
 
