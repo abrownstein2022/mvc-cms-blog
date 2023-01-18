@@ -5,6 +5,7 @@ const {Blog, Comment} = require('../models'); //1/16/23
 
 
 // Use withAuth middleware to prevent access to route
+//signup only has a render since doesn't require any data
 router.get('/signup', async (req, res) => {
   try {
     res.render('signup');
@@ -37,7 +38,7 @@ router.get('/dashboard', async (req, res) => {
     const blogData = await Blog.findAll({
       where: { user_id: req.session.user_id}
     });
-    const blogs = blogData.map(blog => blog.get({plain:true}));
+    const blogs = blogData.map(blog => blog.get({plain:true})).sort((a,b) => a.date_created < b.date_created ? 1 : -1);
 
 
     // // Serialize data so the template can read it
@@ -80,7 +81,7 @@ router.get('/', async (req, res) => {
         },
       ],
     });
-    const blogs = blogData.map(blog => blog.get({plain:true})); //serialize data
+    const blogs = blogData.map(blog => blog.get({plain:true})).sort((a,b) => a.date_created < b.date_created ? 1 : -1); //serialize data
     console.log('got blogs by current user:', blogs);
 
     res.render('homepage', {
@@ -97,7 +98,7 @@ router.get('/', async (req, res) => {
 });
 
 // homepage does not need login - open to public
-router.get('/:blog_id', withAuth, async (req, res) => {
+router.get('/active/:blog_id', withAuth, async (req, res) => {
   try {
     const blogId = parseInt(req.params.blog_id);
     const blogData = await Blog.findAll({
@@ -122,7 +123,8 @@ router.get('/:blog_id', withAuth, async (req, res) => {
 
         return blog;
 
-      });
+      })
+      .sort((a,b) => a.date_created < b.date_created ? 1 : -1);
     //serialize data
     console.log('got blogs by current user:', blogs);
 

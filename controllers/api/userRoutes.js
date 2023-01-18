@@ -10,6 +10,22 @@ const { User } = require('../../models');
 //! we COULD duplicate our logic here
 // recommended to separate your controller / router logic
 /** registerUser({ username, password }) */
+// const add = (a, b) => a + b
+// const add = (a, b, ...theRest) => a + b + theRest[0] + theRest[1]
+// const add = (...args) => args[0] + args[1]
+// const add = (...args) => args.reduce()
+// const add = (config) => config.a + config.b
+
+// typescript - typed javascript / js with types
+// type RegisterConfig = {
+//   username: string;
+//   password?: string;
+// }
+
+//- typescript 'type' and 'interface' are non-standard js (as of now) - new versions will allow ts style comments as type definitions
+// ts has to be compiled (really transpiled) to javacript
+
+//! this is coming from router.post('/register')
 const registerUser = async (config) => {
   try {
     // user model is only looking for username and password, so will ignore any other keys
@@ -55,6 +71,10 @@ router.post('/register', async (req, res) => {
     //! we COULD duplicate our logic here
     // recommended to separate your controller / router logic
     const userData = await registerUser(req.body);
+
+    if(!userData){
+      res.status(400).json({ message: 'Failed to register the user'});
+    }
 
     req.session.save(() => {
       req.session.user_id = userData.id;

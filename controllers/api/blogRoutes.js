@@ -260,7 +260,7 @@ router.post('/comment/:blog_id', withAuth, async (req, res) => {
       blog_id: blogId,
       content,
     });
-    res.redirect('/homepage');
+    res.redirect('/');
 
 
 

@@ -9,7 +9,7 @@
       <small>{{blog.username}} on {{format_date blog.date_created}}</small>
     </div>
     <div class="card-body">{{blog.content}}</div>
-    <a class="text-normal" href="/{{blog.id}}">+ Comment</a>
+    <a class="text-normal" href="/active/{{blog.id}}">+ Comment</a>
     {{#if blog.active}}
     <form method="POST" action="/api/blogs/comment/{{blog.id}}">
       <input name="content" />
