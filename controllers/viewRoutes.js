@@ -12,6 +12,7 @@ router.get('/signup', async (req, res) => {
   } catch (err) {
     // res.status(500).json(err);
     res.render('error', {
+      username: req.session.username,
       text: err?.message ?? err.toString() ?? err
     });
   }
@@ -27,7 +28,7 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
-router.get('/dashboard', async (req, res) => {
+router.get('/dashboard', withAuth, async (req, res) => {
   try {
     //! not recommended to use router inside of the router
     // this is possible but complicated and not recommended
@@ -36,7 +37,7 @@ router.get('/dashboard', async (req, res) => {
     //! we COULD duplicate our logic here
     // // recommended to separate your controller / router logic
     const blogData = await Blog.findAll({
-      where: { user_id: req.session.user_id}
+      where: { user_id: req.session.user_id }
     });
     const blogs = blogData.map(blog => blog.get({plain:true})).sort((a,b) => a.date_created < b.date_created ? 1 : -1);
 
@@ -49,12 +50,14 @@ router.get('/dashboard', async (req, res) => {
       blogs,
       logged_in: req.session.logged_in,
       // this will only show the blogs for the currently logged in user
-      user_id: req.session.user_id
+      user_id: req.session.user_id,
+      username: req.session.username,
     });
   } catch (err) {
     //! never return status/json from a view route - create an error.hbs page and render it with error data
     // res.status(500).json(err);
     res.render('error', {
+      username: req.session.username,
       text: err?.message ?? err.toString() ?? err
     });
   }
@@ -87,11 +90,13 @@ router.get('/', async (req, res) => {
     res.render('homepage', {
       blogs,
       user_id: req.session.user_id,
+      username: req.session.username,
       logged_in: req.session.logged_in
     });
   } catch (err) {
     //! never return status/json from a view route - create an error.hbs page and render it with error data
     res.render('error', {
+      username: req.session.username,
       text: err?.message ?? err.toString() ?? err
     });
   }
@@ -131,11 +136,13 @@ router.get('/active/:blog_id', withAuth, async (req, res) => {
     res.render('homepage', {
       blogs,
       user_id: req.session.user_id,
+      username: req.session.username,
       logged_in: req.session.logged_in
     });
   } catch (err) {
     //! never return status/json from a view route - create an error.hbs page and render it with error data
     res.render('error', {
+      username: req.session.username,
       text: err?.message ?? err.toString() ?? err
     });
   }
@@ -149,11 +156,13 @@ router.get('/edit/:blog_id', withAuth, async (req, res) => {
 
     res.render('edit', {
       blog,
+      username: req.session.username,
       logged_in: req.session.logged_in
     });
   } catch (err) {
     //! never return status/json from a view route - create an error.hbs page and render it with error data
     res.render('error', {
+      username: req.session.username,
       text: err?.message ?? err.toString() ?? err
     });
   }
@@ -162,11 +171,13 @@ router.get('/edit/:blog_id', withAuth, async (req, res) => {
 router.get('/new', withAuth, async (req, res) => {
   try {
     res.render('new', {
+      username: req.session.username,
       logged_in: req.session.logged_in
     });
   } catch (err) {
     //! never return status/json from a view route - create an error.hbs page and render it with error data
     res.render('error', {
+      username: req.session.username,
       text: err?.message ?? err.toString() ?? err
     });
   }

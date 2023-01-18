@@ -102,6 +102,7 @@ router.post('/', withAuth, async (req, res) => {
   } catch (err) {
     // res.status(400).json(err);
     res.render('error', {
+      username: req.session.username,
       text: err?.message ?? err.toString() ?? err
     });
   }
@@ -184,6 +185,7 @@ router.post('/edit/:blog_id', withAuth, async (req, res) => {
     if (!blogData) {
       // res.status(404).json({ message: 'No blog found with this id!' });
       res.render('error', {
+        username: req.session.username,
         text: 'No blog found with this id!'
       });
       return;
@@ -196,6 +198,7 @@ router.post('/edit/:blog_id', withAuth, async (req, res) => {
     //   err
     // });
     res.render('error', {
+      username: req.session.username,
       text: err?.message ?? err.toString() ?? err
     });
   }
@@ -272,6 +275,7 @@ router.post('/comment/:blog_id', withAuth, async (req, res) => {
     //   err
     // });
     res.render('error', {
+      username: req.session.username,
       text: err?.message ?? err.toString() ?? err
     });
   }

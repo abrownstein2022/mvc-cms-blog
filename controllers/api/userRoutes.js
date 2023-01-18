@@ -29,12 +29,12 @@ const { User } = require('../../models');
 const registerUser = async (config) => {
   try {
     // user model is only looking for username and password, so will ignore any other keys
-    const userData = await User.create(config);
-    return userData;
+    const userData = await User.create(config, {returning: true});
+    return userData.get({ plain: true });
   } catch (err) {
     console.log(err);
     // functions that return nothing or just return - actually return undefined
-    return undefined;
+    throw new Error(err);
   }
 };
 
@@ -61,7 +61,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST ...com/api/users/register - to register a new user { username, password }
+// POST ...com/api/users/register - to register/create a new user { username, password }
 router.post('/register', async (req, res) => {
   try {
     //! not recommended to use router inside of the router
@@ -74,24 +74,30 @@ router.post('/register', async (req, res) => {
 
     if(!userData){
       res.status(400).json({ message: 'Failed to register the user'});
+    }else{
+      console.log('Registered user:', userData);
     }
 
     req.session.save(() => {
       req.session.user_id = userData.id;
+      req.session.username = userData.username;
       req.session.logged_in = true;
+      // redirect AFTER the session vars are set (inside of this callback function)
+      res.redirect('/dashboard');
 
       // res.status(200).json({
       //   ...userData,
       //   password: '*' //! overwriting the password so no insecure data is returned to the front-end
       // });
       // do not use pass the entire object. Just pass the fields we need to show and don't show the password.
-      res.status(200).json({
-        id: userData.id,
-        username: userData.username,
-      });
     });
   } catch (err) {
-    res.status(400).json(err);
+    //! never return status/json from a view route - create an error.hbs page and render it with error data
+    // res.status(500).json(err);
+    res.render('error', {
+      username: req.session.username,
+      text: err?.message ?? err.toString() ?? err
+    });
   }
 });
 
