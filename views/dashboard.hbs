@@ -9,30 +9,28 @@ and will return whatever values are returned by the helper function (key, value)
 {{/eachProperty}}
 
  --}}
-
-{{#each blogs as |blog|}}
-<div class="row mb-4 project">
+<div class="text-center">
+  {{!-- <h2>{{user_id}}: {{username}}</h2> We are not passing username into render calls --}}
   <div class="col-md-5">
-    <h2>
-      {{!-- <a href="/project/{{project.id}}">{{project.name}}</a> --}}
-      {{blog.title}}
-      {{!--
-       if we created a helper to generate a banner image (unique to each user) 
-       we can register this function as a helper and invoke it in the front end with three handlebars {{{helper_func}}}
-      
-      --}}
-     toString('yyyy-MM-dd')
-    </h2>
-    {{!-- use format_date function found in utils/helpers.js --}}
-    <p>posted by: {{blog.username}} on {{blog.date_created}}</p>
-    <p>{{blog.content}}</p>
+    <a href="/new">+ New Post</a>
+  {{#each blogs as |blog|}}
+  <a class="text-normal" href="/edit/{{blog.id}}">
+  <div class="card">
+    <div class="card-header display-flex justify-space-between">
+      <h4>{{blog.title}}</h4>
+      <small>{{blog.username}} on {{format_date blog.date_created}}</small>
+    </div>
+    <div class="card-body">{{blog.content}}</div>
+    {{!-- {{#if blog.id === blogIdParam}} --}}
     <ul>
       {{#each blog.comment as |comment|}}
       <li>{{comment.content}} - {{comment.username}}</li>
       {{/each}}
     </ul>
-
+    {{!-- Edit this Post</a> --}}
+    {{!-- <div class="card-footer">posted by: {{blog.username}} on {{format_date blog.date_created}}</div> --}}
+  </div>
+</a>
+  {{/each}}
   </div>
 </div>
-{{/each}} 
-

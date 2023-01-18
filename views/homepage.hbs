@@ -3,17 +3,28 @@
   <div class="col-md-5">
     <a href="/new">+ New Post</a>
   {{#each blogs as |blog|}}
-  <a class="text-normal" href="/edit/{{blog.id}}">
   <div class="card">
     <div class="card-header display-flex justify-space-between">
       <h4>{{blog.title}}</h4>
       <small>{{blog.username}} on {{format_date blog.date_created}}</small>
     </div>
     <div class="card-body">{{blog.content}}</div>
+    <a class="text-normal" href="/{{blog.id}}">+ Comment</a>
+    {{#if blog.active}}
+    <form method="POST" action="/api/blogs/comment/{{blog.id}}">
+      <input name="content" />
+      <button type="submit">Submit</button>
+    </form>
+    {{/if}}
+    <ul>
+      {{#each blog.comments as |comment|}}
+      <li>{{comment.content}} - {{comment.username}}</li>
+      {{/each}}
+    </ul>
     {{!-- Edit this Post</a> --}}
     {{!-- <div class="card-footer">posted by: {{blog.username}} on {{format_date blog.date_created}}</div> --}}
   </div>
-</a>
+
   {{/each}}
   </div>
 </div>

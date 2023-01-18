@@ -1,7 +1,30 @@
 const router = require('express').Router();
 const withAuth = require('../utils/auth');
-const { createBlogCommentMap, getBlogsByUserId, getBlogById } = require('./api/blogRoutes');
-const {Blog} = require("../models"); //1/16/23
+const { getBlogById } = require('./api/blogRoutes');
+const {Blog, Comment} = require('../models'); //1/16/23
+
+
+// Use withAuth middleware to prevent access to route
+router.get('/signup', async (req, res) => {
+  try {
+    res.render('signup');
+  } catch (err) {
+    // res.status(500).json(err);
+    res.render('error', {
+      text: err?.message ?? err.toString() ?? err
+    });
+  }
+});
+
+router.get('/login', (req, res) => {
+  // If the user is already logged in, redirect the request to another route
+  if (req.session.logged_in) {
+    res.redirect('/dashboard');
+    return;
+  }
+
+  res.render('login');
+});
 
 router.get('/dashboard', async (req, res) => {
   try {
@@ -11,22 +34,18 @@ router.get('/dashboard', async (req, res) => {
 
     //! we COULD duplicate our logic here
     // // recommended to separate your controller / router logic
-    // const projectData = await Project.findAll({
-    //   include: [
-    //     {
-    //       model: User,
-    //       attributes: ['name'],
-    //     },
-    //   ],
-    // });
+    const blogData = await Blog.findAll({
+      where: { user_id: req.session.user_id}
+    });
+    const blogs = blogData.map(blog => blog.get({plain:true}));
 
 
     // // Serialize data so the template can read it
     // const projects = projectData.map((project) => project.get({ plain: true }));
 
-    const blogMap = createBlogCommentMap();
+    // const blogMap = createBlogCommentMap();
     res.render('dashboard', {
-      blogMap,
+      blogs,
       logged_in: req.session.logged_in,
       // this will only show the blogs for the currently logged in user
       user_id: req.session.user_id
@@ -51,17 +70,60 @@ router.get('/', async (req, res) => {
     // }
     //! tthis func now returns the mysql blog items mapped to an array of their dataVlaues
     //! can use the array directly without filtering
-    // const blogs = await getBlogsByUserId(req.session.user_id);
+    //  const blogs = await getBlogsByUserId(req.session.user_id);
 
     const blogData = await Blog.findAll({
       include: [
         {
-          model: User,
-          attributes: ['name'],
+          model: Comment,
+          attributes: ['username', 'content'],
         },
       ],
     });
-     const blogs = blogData.map(blog => blog.get({plain:true}))  //serialize data
+    const blogs = blogData.map(blog => blog.get({plain:true})); //serialize data
+    console.log('got blogs by current user:', blogs);
+
+    res.render('homepage', {
+      blogs,
+      user_id: req.session.user_id,
+      logged_in: req.session.logged_in
+    });
+  } catch (err) {
+    //! never return status/json from a view route - create an error.hbs page and render it with error data
+    res.render('error', {
+      text: err?.message ?? err.toString() ?? err
+    });
+  }
+});
+
+// homepage does not need login - open to public
+router.get('/:blog_id', withAuth, async (req, res) => {
+  try {
+    const blogId = parseInt(req.params.blog_id);
+    const blogData = await Blog.findAll({
+      include: [
+        {
+          model: Comment,
+          // attributes: ['name'],
+        },
+      ],
+    });
+
+    const blogs = blogData
+      .map(blog => {
+        blog = blog.get({plain:true});
+
+        if(blog.id === blogId){
+          return {
+            ...blog,
+            active: true,
+          };
+        }
+
+        return blog;
+
+      });
+    //serialize data
     console.log('got blogs by current user:', blogs);
 
     res.render('homepage', {
@@ -78,7 +140,8 @@ router.get('/', async (req, res) => {
 });
 
 // add a route to handle showing the edit blog page
-router.get('/edit/:blog_id', async (req, res) => {
+//! withAuth is middleware that checks if logged-in
+router.get('/edit/:blog_id', withAuth, async (req, res) => {
   try {
     const blog = await getBlogById(req.params.blog_id);
 
@@ -94,7 +157,7 @@ router.get('/edit/:blog_id', async (req, res) => {
   }
 });
 
-router.get('/new', async (req, res) => {
+router.get('/new', withAuth, async (req, res) => {
   try {
     res.render('new', {
       logged_in: req.session.logged_in
@@ -108,27 +171,7 @@ router.get('/new', async (req, res) => {
 });
 
 
-// Use withAuth middleware to prevent access to route
-router.get('/signup', withAuth, async (req, res) => {
-  try {
-    res.render('signup');
-  } catch (err) {
-    // res.status(500).json(err);
-    res.render('error', {
-      text: err?.message ?? err.toString() ?? err
-    });
-  }
-});
 
-router.get('/login', (req, res) => {
-  // If the user is already logged in, redirect the request to another route
-  if (req.session.logged_in) {
-    res.redirect('/dashboard');
-    return;
-  }
-
-  res.render('login');
-});
 
 
 module.exports = router;

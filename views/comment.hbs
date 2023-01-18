@@ -1,0 +1,23 @@
+<div class="text-center">
+  <h2>{{username}}</h2>
+  <h2>{{user_id}}</h2>
+  <div class="col-md-5">
+
+{{!-- send a PUT request to tthis api route to update the blog in db --}}
+    <form method="POST" action="/api/blogs">
+
+      <label for="blog-title" class="form-group">Title</label>
+      <input id="blog-title" placeholder="Blog Title" name="title" class="form-input" ></input>
+
+      <label for="blog-content"  class="form-group">Content</label>
+      <input id="blog-content" placeholder="Blog Content" name="content" class="form-input"></input>
+      
+      <br />
+      <button type="submit">Create Post!</button>
+
+    </form>
+
+  </div>
+
+
+</div>

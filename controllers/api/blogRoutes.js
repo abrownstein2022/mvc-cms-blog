@@ -224,6 +224,59 @@ router.delete('/:blog_id', withAuth, async (req, res) => {
   }
 });
 
+//if there's a delete method, then there's also an update method (go hand-in-hand)
+// POST...com/api/blogs/edit/:blog_id
+router.post('/comment/:blog_id', withAuth, async (req, res) => {
+  try {
+
+    console.log('recieved request at route: api/blogs/edit/blog_id :', req.body, req.params);
+
+    const { content } = req.body;
+    //! check out Zod npm package (validation)
+    if ( !content) {
+      res.status(404).json({ message: 'Comment requires "content" values.' });
+      return;
+    }
+    // let blogData;
+    let blogId;
+
+    try{
+      blogId = parseInt(req.params.blog_id); //~ NaN has typeof number
+      console.log('Parsed id:', blogId);
+    }catch(err){
+      console.log('ERR 1 (cound not parse id):', err);
+    }
+
+    try{
+      await Blog.findOne({ where: { id: blogId } });
+    }catch(err){
+      console.log('ERR 2 (blog does not exist):', err);
+    }
+
+
+
+    await Comment.create({
+      username: req.session.username,
+      blog_id: blogId,
+      content,
+    });
+    res.redirect('/homepage');
+
+
+
+
+
+  } catch (err) {
+    // res.status(500).json({
+    //   devMessage: 'Error updating the blog content...',
+    //   err
+    // });
+    res.render('error', {
+      text: err?.message ?? err.toString() ?? err
+    });
+  }
+});
+
 // module.exports = router;
 // module.exports = { createBlogCommentMap, getBlogsByUserId };
 
