@@ -20,10 +20,10 @@
         <a href="/dashboard" style="margin-left: 1rem;">Dashboard</a> 
         {{#if logged_in}}
         <button class="no-button" id="logout" style="margin-left: 1rem;">logout</button>
+        <div style="flex: 1; margin-left: 1rem;">Logged in as: {{username}}</div>
         {{else}}
         <a href="/login" style="margin-left: 1rem;">Login</a>
         {{/if}}
-        <div style="flex: 1; margin-left: 1rem;">Logged in as: {{username}}</div>
       </nav>
 
     </header>
