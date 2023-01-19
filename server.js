@@ -19,6 +19,7 @@ const PORT = process.env.PORT || 3001;
 const sess = {
   secret: 'Super secret secret',
   cookie: {
+    // maxAge sets timeout after idle time, which below is 5 minutes
     maxAge: 300000,
     httpOnly: true,
     secure: false,
