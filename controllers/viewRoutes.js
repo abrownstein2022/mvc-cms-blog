@@ -80,12 +80,13 @@ router.get('/', async (req, res) => {
       include: [
         {
           model: Comment,
-          attributes: ['username', 'content'],
+          //1/19/23 need date_created to display after comment created
+          attributes: ['username', 'content', 'date_created'],
         },
       ],
     });
     const blogs = blogData.map(blog => blog.get({plain:true})).sort((a,b) => a.date_created < b.date_created ? 1 : -1); //serialize data
-    console.log('got blogs by current user:', blogs);
+    console.log('got blogs by current user:', JSON.stringify(blogs, null, 2));
 
     res.render('homepage', {
       blogs,
@@ -111,6 +112,12 @@ router.get('/active/:blog_id', withAuth, async (req, res) => {
         {
           model: Comment,
           // attributes: ['name'],
+          //! This db request was not requesting the correct fields from "Comment"
+          attributes: [
+            'username',
+            'content',
+            'date_created'
+          ]
         },
       ],
     });

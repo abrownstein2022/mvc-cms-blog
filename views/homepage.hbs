@@ -18,7 +18,7 @@
     {{/if}}
     <ul>
       {{#each blog.comments as |comment|}}
-      <li>{{comment.content}} - {{comment.username}}</li>
+      <li>{{comment.content}} - {{comment.username}} on {{format_date comment.date_created}}</li>
       {{/each}}
     </ul>
     {{!-- Edit this Post</a> --}}

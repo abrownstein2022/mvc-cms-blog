@@ -23,7 +23,7 @@ and will return whatever values are returned by the helper function (key, value)
     <div class="card-body">{{blog.content}}</div>
     {{!-- {{#if blog.id === blogIdParam}} --}}
     <ul>
-      {{#each blog.comment as |comment|}}
+      {{#each blog.comments as |comment|}}
       <li>{{comment.content}} - {{comment.username}}</li>
       {{/each}}
     </ul>
