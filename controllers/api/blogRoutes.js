@@ -207,11 +207,21 @@ router.post('/edit/:blog_id', withAuth, async (req, res) => {
 
 //if there's a delete method, then there's also an update method (go hand-in-hand)
 // DELETE...com/api/blogs/:id
-router.delete('/:blog_id', withAuth, async (req, res) => {
+//! links are always GET requests
+router.get('/delete/:blog_id', withAuth, async (req, res) => {
   try {
+    let blogId;
+
+    try{
+      blogId = parseInt(req.params.blog_id); //~ NaN has typeof number
+      console.log('Parsed id:', blogId);
+    }catch(err){
+      console.log('ERR 1 (cound not parse id):', err);
+    }
+
     const blogData = await Blog.destroy({
       where: {
-        id: req.params.blog_id,
+        id: blogId,
         user_id: req.session.user_id,
       },
     });
@@ -220,8 +230,8 @@ router.delete('/:blog_id', withAuth, async (req, res) => {
       res.status(404).json({ message: 'No blog found with this id!' });
       return;
     }
-
-    res.status(200).json(blogData);
+    console.log('Blog deleted...');
+    res.redirect('/dashboard');
   } catch (err) {
     res.status(500).json(err);
   }
