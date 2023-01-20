@@ -92,7 +92,7 @@ $ gh repo clone /abrownstein2022/proj2-restaurant-mgmt-sys
 
 ```bash
 $ npm install
-```
+``` 
 
 3. Log into mysql, create the database on your local machine and seed the database:
 
