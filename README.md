@@ -109,7 +109,7 @@ $npm run seed-database
 ```bash
 $ npm run watch 
 ```
-
+  
 5. Open Express or a browser to test any changes you make to the application after cloning.
 
 
