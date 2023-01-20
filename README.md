@@ -1,6 +1,8 @@
 # Model-View-Controller (MVC) Challenge 14: Tech Blog
 ![license](https://img.shields.io/badge/license-MIT-black)
 
+NEED HEROKU DEPLOYMENT
+
 ## Table of Contents
 
 - [Description](#description)
@@ -116,7 +118,7 @@ $ npm run watch
 
 
 
-## Usage
+## Usage  NOT REDONE FOR CH14
 1. You will need 2 terminal sessions to use this application.
 
 2. In one of the terminal sessions, start up the mongo server:
@@ -196,7 +198,7 @@ https://opensource.org/licenses/mit-license
 ![badge](https://img.shields.io/badge/license-mit-black)
 
 
-## Features
+## Features  NOT REDONE FOR CH14
 
 <!-- 
 # h1
@@ -218,7 +220,7 @@ _underline_
 1. all ones - automatic numbering
 Features for *future* development
  -->
-**The main features in this project are:**<br>
+**The main features in this project are:**<br> NOT REDONE FOR CH14
 1. Uses Node.js, Inquirer, Express, Insomnia, Mongo DB and Mongoose
 1. Example screenshots and a demonstration video
 1. Necessary folder structure 
@@ -232,39 +234,8 @@ Features for *future* development
 N/A
 
 ## Tests
-
-This application was tested with Insomnia using the routes below.
-
-*USERS*
-```md
-`api/users`  
-    - GET: return all users  
-    - POST: create a new user  
-
-`api/users/:user_id`  
-    - GET: a single user by `_id`  
-    - PUT: update a user by `_id`  
-    - DELETE: delete a user by `_id`  (and also delete their thoughts if any exist)
-
-`api/users/:user_id/friends/:friend_id`  
-    - POST: add a new friend to the users list 
-    - DELETE: remove a friend from the users friend list
-```
-
-*THOUGHTS*
-```md
-`api/thoughts`  
-    - GET: get all thoughts  
-    - POST: create a new thought  
-
-`api/thoughts/:thought_id`  
-    - GET: get a thought by its `_id`  
-    - PUT: update a thought by its `_id`  
-    - DELETE: delete a thought by its `_id`  
-
-`api/thoughts/:thought_id/reactions`  
-    - POST: create and add a reaction to the thoughts reactions list  
-    - DELETE: delete a reaction by its thought id 
+``md
+N/A
 ```
 
 ## Questions
@@ -275,4 +246,4 @@ I can be reached at alexis@drdatabase.com.
 
 This GitHub repo can be found at:
   
-https://github.com/abrownstein2022/ch18-nosql-social-network-api
+https://github.com/abrownstein2022/ch14-mvc-cms-blog
