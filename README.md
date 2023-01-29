@@ -76,23 +76,7 @@ THEN I am able to view comments but I am prompted to log in again before I can a
 $ gh repo clone https://github.com/abrownstein2022/ch14-mvc-cms-blog
 ```
 
-2. From the terminal, install npm, express, date-fns and moongoose 6.8.0 packages:
-    "start": "node server.js",
-    "seed": "node seeds/seed.js",
-    "dev": "eslint . --fix && node server.js",
-    "watch": "nodemon --watch '.' --ext 'js' --exec npm run dev"
-```bash
-$ npm i
-$ npm install express
-$ npm install date-fns
-$ npm install mongoose@6.8.0
-```
-
-```bash
-$ gh repo clone /abrownstein2022/proj2-restaurant-mgmt-sys
-```
 2. From the terminal, install npm:
-
 ```bash
 $ npm install
 ``` 
@@ -108,31 +92,17 @@ $npm run seed-database
  mysql> restaurant_mgr < C:\[filename].sql
 -->
 
-4. Start the local server and watch for file changes to automatically restart server:
+4. Start the local server and watch for file changes to automatically restart server (nodemon):
 ```bash
 $ npm run watch 
 ```
   
-5. Open Express or a browser to test any changes you make to the application after cloning.
+5. Open browser to test any changes you make to the application after cloning.
 
 
-
-
-
-## Usage  NOT REDONE FOR CH14
-The tech blog is deployed on Heroku:
+## Usage  
+The tech blog is deployed on Heroku and has been seeded with initial seed data.  Click on the link below to start the application.  Or clone and use from your vs-code.
 https://cms-tech-blog.herokuapp.com/
-
-1. You will need 2 terminal sessions to use this application.
-
-2. In one of the terminal sessions, start up the mongo server:
-```bash
-mongod
-```
-3. In the other terminal session, run the application:
-```bash
-$npm start
-```
 
 Or to start with nodemon
 
@@ -140,48 +110,49 @@ Or to start with nodemon
 $npm run dev
 ```
 
-**The screenshots below show different functionality of the application:**<br>
-![example image 1 terminal start commands](./assets/ch18-image1-terminal-start-commands.png)
+**The screenshots below show the functionality of the application:**<br>
+Homepage opens for all users showing all posts and comments but no one can update data without logging in.
+![example image 1 homepage](./public/images/ch14-screen1-homepage.png)
 
-![example image 2 create user insomnia](./assets/ch18-image2-create-user-insomnia.png)
+User must register on the website to enter posts, update and delete their posts, and add comments to other user posts.
+![example image 2 signup or login](./public/images/ch14-screen2-signup-or-login.png)
 
-![example image 3 find user insomnia](./assets/ch18-image3-find-users-insomnia.png)
+New user signup.
+![example image 3 new user signup](./public/images/ch14-screen3-new-user-signup.png)
 
-![example image 4 update user insomnia](./assets/ch18-image4-update-user-insomnia.png)
+Dashboard displays after user login, showing the logged in user's posts.
+![example image 4 new user dashboard](./public/images/ch14-screen4-new-user-dashboard.png)
 
-![example image 5 delete user insomnia](./assets/ch18-image5-del-user-insomnia.png)
+New user's first blog post.
+![example image 5 new user first blog post](./public/images/ch14-screen5-new-user-first-blog-post.png)
 
-![example image 6 get thoughts insomnia](./assets/ch18-image6-get-thoughts-insomnia.png)
+New user's second blog post.
+![example image 6 new user dashboard after first blog post](./public/images/ch14-screen6-new-user-dashboard-after-first-blog-post.png)
 
-**Please review the demonstration video below to see, step-by-step, how the entire application works:**
+Dashboard display of new user after 2 new posts added.
+![example image 7 dashboard after blog post 2](./public/images/ch14-screen7-dashboard-after-post-2.png)
 
-![demo video of how to use this application](./assets//ch18-nosql-demo.gif)
+New user comments on another user's post.
+![example image 8 comment on another post](./public/images/ch14-screen8-comment-on-another-post.png)
 
-**Please see the screenshots below to specifically review that thoughts are deleted when users are deleted.**
+Homepage display after new user entered comments on another user's post.
+![example image 9 comment on someone else's post](./public/images/ch14-screen9-comment-on-someone-elses-post.png)
 
-Run "find all users" to see no users have been created yet.
-![example image 1 delete thoughts when user deleted](./assets/ch18-screen1-show-delete-user-thoughts.png)
+Display posted comment.
+![example image 10 posted comment](./public/images/ch14-screen10-posted-comment.png)
 
-Create new user brandon.
-![example image 2 delete thoughts when user deleted](./assets/ch18-screen2-show-delete-user-thoughts.png)
+New user updates their own post.
+![example image 11 update data](./public/images/ch14-screen11-update-data.png)
 
-Create thought for user brandon.
-![example image 3 delete thoughts when user deleted](./assets/ch18-screen3-show-delete-user-thoughts.png)
+Display shows latest update works.
+![example image 12 update screen works](./public/images/ch14-screen12-update-works.png)
 
-View all thoughts to confirm the new thought has been created for Brandon.
-![example image 4 delete thoughts when user deleted](./assets/ch18-screen4-show-delete-user-thoughts.png)
+The new user deletes one of their posts.<br>
+![example image 13 delete post](./public/images/ch14-screen13-delete-post.png)
 
-View all users to confirm again that the new thought has been tied to Brandon's userid. 
-![example image 5 delete thoughts when user deleted](./assets/ch18-screen5-show-delete-user-thoughts.png)
+Display dashboard after new post has been deleted.
+![example image 14 dashboard after delete own post](./public/images/ch14-screen14-dashboard-after-delete.png)
 
-Delete the user.<br>
-![example image 6 delete thoughts when user deleted](./assets/ch18-screen6-show-delete-user-thoughts.png)
-
-View all users to confirm user brandon has been deleted.
-![example image 7 delete thoughts when user deleted](./assets/ch18-screen7-show-delete-user-thoughts.png)
-
-View all thoughts to confirm brandon's thought was also deleted. 
-![example image 8 delete thoughts when user deleted](./assets/ch18-screen8-show-delete-user-thoughts.png)
 
 ## Credits
 
@@ -202,7 +173,7 @@ https://opensource.org/licenses/mit-license
 ![badge](https://img.shields.io/badge/license-mit-black)
 
 
-## Features  NOT REDONE FOR CH14
+## Features 
 
 <!-- 
 # h1
@@ -224,23 +195,19 @@ _underline_
 1. all ones - automatic numbering
 Features for *future* development
  -->
-**The main features in this project are:**<br> NOT REDONE FOR CH14
-1. Uses Node.js, Inquirer, Express, Insomnia, Mongo DB and Mongoose
-1. Example screenshots and a demonstration video
-1. Necessary folder structure 
+**The main features in this project are:**<br> 
+1. Uses Node.js, handlebars, sequelize/mySQL, npm for authentication, Heroku for deployed website
+1. Example screenshots with description of application functionality 
+1. Necessary MVC folder structure 
 1. Professional README
-1. Utils.js file in models folder to handle global functions used
-1. date-fns used to format dates
-
-
+1. User credentials saved to log into the site
+1. Timeout after 5 minutes of inactivity
 ## How-to-Contribute
 
 N/A
 
 ## Tests
-``md
 N/A
-```
 
 ## Questions
 
