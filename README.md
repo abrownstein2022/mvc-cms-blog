@@ -1,7 +1,8 @@
 # Model-View-Controller (MVC) Challenge 14: Tech Blog
 ![license](https://img.shields.io/badge/license-MIT-black)
 
-NEED HEROKU DEPLOYMENT
+Deployed site on Heroku:
+https://cms-tech-blog.herokuapp.com/
      
 ## Table of Contents
 
@@ -119,6 +120,9 @@ $ npm run watch
 
 
 ## Usage  NOT REDONE FOR CH14
+The tech blog is deployed on Heroku:
+https://cms-tech-blog.herokuapp.com/
+
 1. You will need 2 terminal sessions to use this application.
 
 2. In one of the terminal sessions, start up the mongo server:
@@ -247,3 +251,4 @@ I can be reached at alexis@drdatabase.com.
 This GitHub repo can be found at:
   
 https://github.com/abrownstein2022/ch14-mvc-cms-blog
+
