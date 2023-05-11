@@ -1,9 +1,9 @@
-# Model-View-Controller (MVC) Challenge 14: Tech Blog
+# Model-View-Controller (MVC): Tech Blog
 ![license](https://img.shields.io/badge/license-MIT-black)
 
-Deployed site on Heroku:
+<!--Deployed site on Heroku:
 https://cms-tech-blog.herokuapp.com/
-     
+     -->
 ## Table of Contents
 
 - [Description](#description)
@@ -18,7 +18,7 @@ https://cms-tech-blog.herokuapp.com/
 
 ## Description
 ```md
-The task for this assignment was to build a CMS-style blog site similar to a Wordpress site, where developers can publish their blog posts and also comment on other developers’ posts.
+The task for this project was to build a CMS-style blog site similar to a Wordpress site, where developers can publish their blog posts and also comment on other developers’ posts.
 ```
 
 **User Story**
@@ -70,10 +70,10 @@ THEN I am able to view comments but I am prompted to log in again before I can a
 ## Installation
 <!-- audience is other developers -->
 
-1. Clone this GitHub repo https://github.com/abrownstein2022/ch14-mvc-cms-blog
+1. Clone this GitHub repo https://github.com/abrownstein2022/mvc-cms-blog
 <!-- Check out the gh cli tool from github -->
 ```bash
-$ gh repo clone https://github.com/abrownstein2022/ch14-mvc-cms-blog
+$ gh repo clone https://github.com/abrownstein2022/mvc-cms-blog
 ```
 
 2. From the terminal, install npm:
@@ -101,11 +101,12 @@ $ npm run watch
 
 
 ## Usage  
-The tech blog is deployed on Heroku and has been seeded with initial seed data.  Click on the link below to start the application.  Or clone and use from your vs-code.
+<!--The tech blog is deployed on Heroku and has been seeded with initial seed data.  Click on the link below to start the application.  Or clone and use from your vs-code.
 https://cms-tech-blog.herokuapp.com/
 
-Or to start with nodemon
+Or to start with nodemon -->
 
+Start with nodemon
 ```bash
 $npm run dev
 ```
@@ -196,7 +197,7 @@ _underline_
 Features for *future* development
  -->
 **The main features in this project are:**<br> 
-1. Uses Node.js, handlebars, sequelize/mySQL, npm for authentication, Heroku for deployed website
+1. Uses Node.js, handlebars, sequelize/mySQL, npm for authentication
 1. Example screenshots with description of application functionality 
 1. Necessary MVC folder structure 
 1. Professional README
@@ -217,5 +218,5 @@ I can be reached at alexis@drdatabase.com.
 
 This GitHub repo can be found at:
   
-https://github.com/abrownstein2022/ch14-mvc-cms-blog
+https://github.com/abrownstein2022/mvc-cms-blog
 
